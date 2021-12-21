@@ -3,39 +3,39 @@
     <body>
         <div id="root"></div>
     </body>
-    <script src= "https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-    <script src= "https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.12.3/babel.js"></script>
     <script type="text/babel">
-        const root = document.getElementById("root");
-        function App (){
-            const[amount, setAmount] = React.useState();
+
+        //함수 1
+        function MiniutesTohours() {
+            const [amount, setAmount] = React.useState();
             const [flipped, setFlipped] = React.useState(false);
 
-            const onChange =(event)=>{
+            const onChange = (event) => {
                 setAmount(event.target.value);
             }
             const reset = () => {
                 setAmount(0);
             }
-            const flip= () => {
+            const flip = () => {
                 reset();
-                setFlipped((current)=>!current);
+                setFlipped((current) => !current);
             }
             return (
                 <div>
-                    <h3>Super Converter</h3>
                     <div>
                         <label htmlFor="minutes">Minutes</label>
                         <input
                             id="minutes"
                             placeholder="Minutes"
                             type="number"
-                            value={flipped? amount*60 :amount}
+                            value={flipped
+                                ? amount * 60
+                                : amount}
                             disabled ={flipped}
-                            onChange={onChange}
-                            >  
-                            </input>
+                            onChange={onChange}></input>
                         <h4>you want to convert {amount}</h4>
                     </div>
                     <div>
@@ -44,20 +44,44 @@
                             id="hours"
                             placeholder="Hours"
                             type="number"
-                            value={flipped ? amount : Math.round(amount / 60)}
-                            disabled ={!flipped}
-                            onChange={onChange}
-                            >
-                        </input>
+                            value={flipped
+                                ? amount
+                                : Math.round(amount / 60)}
+                            disabled={!flipped}
+                            onChange={onChange}></input>
                     </div>
-                 
+
                     <button onClick={reset}>reset</button>
                     <button onClick={flip}>flip</button>
 
                 </div>
             )
         }
-            ReactDOM.render(<App/>, root)
+        //함수 2
+        function Kmtomiles() {
+            return <h3>Kmtomiles</h3>
+        }
+
+        //함수 3
+        function App() {
+            const[index, setIndex] = React.useState("0");
+            const onSelect = (event) =>{
+                setIndex();
+            }
+            return (
+                <div>
+                    <h3>Super Converter</h3>
+                    <select value = {index} onChange={onSelect}>
+                        <option value="0">Minutes & hours</option>
+                        <option value="1">KM & Miles</option>
+                        </select>
+                   <hr/>
+                   {index == "0"? <MiniutesTohours/> : <Kmtomiles/>}
+                </div>
+            )
+        }
+        const root = document.getElementById("root");
+        ReactDOM.render(<App/>, root)
     </script>
-  
+
 </html>
